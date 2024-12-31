@@ -1,8 +1,10 @@
 import pyttsx3
-def pntSpeak(engine, speach):
+
+def pntSpeak(engine, state, speach):
     print(speach)
-    engine.say(speach)
-    engine.runAndWait()
+    if state:
+        engine.say(speach)
+        engine.runAndWait()
 
 def hlpMenu():
     print("To start the game, type 'start', To quit, type 'quit'")
