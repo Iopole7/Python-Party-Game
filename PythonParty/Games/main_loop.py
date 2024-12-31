@@ -1,6 +1,7 @@
 import pyttsx3
 import helper_Functions
 import keyboard
+import random
 
 pointsToWin = 10
 textInVal = 10
@@ -15,6 +16,7 @@ team1String = ' '
 team2 = []
 team2String = ' '
 players = []
+playerCount = 0
 
 impWord = ["start","quit","help"]
 
@@ -57,7 +59,7 @@ while True:
     else:
         textInVal = 10
         print("Invalid input")
-    if startCon == True:
+    if startCon:
         helper_Functions.pntSpeak(engine, gst1)
         while teamMode != "m" and teamMode != "a":
             teamMode = input(">").lower()
@@ -69,10 +71,12 @@ while True:
             while playerIn != "end":
                 playerIn = input(">")
                 team1.append(playerIn)
+                playerCount += 1
             helper_Functions.pntSpeak(engine, gst4)
             while playerIn2 != "end":
                 playerIn2 = input(">")
                 team2.append(playerIn2)
+                playerCount += 1
             team1.pop()
             team2.pop()
             team1String = ', '.join(map(str, team1))
@@ -86,7 +90,14 @@ while True:
             while playerIn1 != "end":
                 playerIn1 = input(">")
                 players.append(playerIn1)
+                playerCount += 1
             players.pop()
+            playerCount-= 1
+            random.shuffle(players)
+            team1 = players[:playerCount//2]
+            team2 = players[playerCount//2:]
+            print(team1)
+            print(team2)
 
 
 
