@@ -7,6 +7,7 @@ import random
 
 from Games.memory_mash import mem_game
 from Games.objRet import obj_game
+from Games.wordScramble import word_game
 
 
 def sout(eng, tts, string):
@@ -145,9 +146,9 @@ while mainState:
     while pointsToWin > team1P and pointsToWin > team2P and canCon:
         sout(engine, ttsON, f"Team 1 has won {team1P} games and team 2 has won {team2P} games. Press enter to start the next game!")
         input(">")
-        print("large")
         #obj_game(engine, ttsON, team1, team2)
-        mem_game(engine, ttsON)
+        #mem_game(engine, ttsON)
+        word_game(engine,ttsON)
         '''
         if ranGame == 0:
             trivia_game(engine, ttsON)

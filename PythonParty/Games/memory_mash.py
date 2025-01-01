@@ -23,7 +23,6 @@ def mem_game(engine, tts):
 
     starting_team = randint(1,2)
 
-
     s1 = "Welcome to memory mash! This game requires a full team to work together!"
     s2 = "Colours will be displayed on the screen and your team will have to memorize them!"
     s3 = "The team that can get the most right will win the round. The team that wins best 2/3 games gets the point."
@@ -91,7 +90,7 @@ def mem_game(engine, tts):
             team1Scoretemp = 0
             team2Scoretemp = 0
             correct_guess.clear()
-            if team1Score >= 2 or team2Score >= 2:
+            if team1Score < 2 or team2Score < 2:
                 helper_Functions.speak(engine, f"It is team {starting_team} turn now")
         else:
             pass
