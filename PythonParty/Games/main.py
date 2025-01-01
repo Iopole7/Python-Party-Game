@@ -1,18 +1,14 @@
 import pyttsx3
 import helper_Functions
-import keyboard
 import random
 
-from Games.Trivia import trivia_game
-from Games.memory_mash import mem_game
 from Games.objRet import obj_game
-from Games.wordScramble import word_game
 
 
 def sout(eng, tts, string):
     helper_Functions.pntSpeak(eng, tts, string)
 
-pointsToWin = 10
+pointsToWin = 2
 textInVal = 10
 startCon = False
 teamMode = ""
@@ -48,7 +44,7 @@ gst3 = "When done adding players for team1 type 'end'"
 gst4 = "Now for team 2!"
 gst5 = "List all the players! When done type 'end'!"
 
-sst1 = "Now time to play! The first game is"
+sst1 = f"\nNow time to play!\n"
 
 engine = pyttsx3.init()
 engine.setProperty('rate', 190)
@@ -141,6 +137,9 @@ while mainState:
         sout(engine, ttsON, sst1)
         ranGame = random.choice(games)
     while pointsToWin > team1P and pointsToWin > team2P:
+        print("large")
+        #obj_game(engine, ttsON)
+        '''
         if ranGame == 0:
             trivia_game(engine, ttsON)
         if ranGame == 1:
@@ -149,7 +148,7 @@ while mainState:
             word_game(engine, ttsON)
         if ranGame == 3:
             mem_game(engine, ttsON)
-
+        '''
 
 
 sout(engine, ttsON,"Thank you for playing")

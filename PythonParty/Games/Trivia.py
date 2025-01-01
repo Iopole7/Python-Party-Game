@@ -1,5 +1,4 @@
-import helper_Functions
-from Games.main_loop import sout
+from Games import helper_Functions
 
 s1 = "Welcome to trivia! Please select the categories:"
 
@@ -86,5 +85,5 @@ misc = [{
         "answer": "a"
     },]
 
-def trivia_game(engine,tts):
-    sout(engine,tts,s1)
+def trivia_game(eng,tts):
+    helper_Functions.pntSpeak(eng, tts, s1)
