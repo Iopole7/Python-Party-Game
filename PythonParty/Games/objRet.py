@@ -1,11 +1,8 @@
-from random import randint
-
+from random import randint, random, choice
 import keyboard
-
 from Games import helper_Functions
 
-
-def obj_game(eng, tts):
+def obj_game(eng, tts, team1, team2):
     take_in = "abcd1234"
     team1Points = 0
     team2Points = 0
@@ -19,9 +16,9 @@ def obj_game(eng, tts):
     s3 = "The first player to get the object, bring it to the computer, and press their respective teams key, "
     s4 = "'F' for team 1 and 'J' for team 2 win the point."
     s5 = "First team to 5 objects wins."
-    fnd_lst = ("a Left Shoe", "a Bottle of Water", "a Shampoo bottle", "a Toliet Paper", "Something wooden", "Something hard",
-    "Something that tells time", "Something that has legs", "Something that smells", "a Rock", "Something made of metal",
-    "Something tasty", "Something sweet", "A small friend")
+    fnd_lst = ("a left Shoe", "a bottle of water", "a shampoo bottle", "a toliet paper", "something wooden", "something hard",
+    "something that tells time", "something that has legs", "something that smells", "a rock", "something made of metal",
+    "something tasty", "something sweet", "a small friend")
 
     helper_Functions.pntSpeak(eng, tts, s1)
     helper_Functions.pntSpeak(eng, tts, s2)
@@ -35,7 +32,7 @@ def obj_game(eng, tts):
             rnVal = randint(0, len(fnd_lst) - 1)
             while rnVal in usedVals:
                 rnVal = randint(0, len(fnd_lst) - 1)
-            helper_Functions.pntSpeak(eng, tts, f"\nFind {fnd_lst[rnVal]}")
+            helper_Functions.pntSpeak(eng, tts, f"\n{choice(team1)} and {choice(team2)} find {fnd_lst[rnVal]}")
             usedVals.append(rnVal)
         rnd_start = False
         if keyboard.is_pressed("f") and pressed:

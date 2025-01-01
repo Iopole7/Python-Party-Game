@@ -1,7 +1,10 @@
+from random import shuffle
+
 import pyttsx3
 import helper_Functions
 import random
 
+from Games.memory_mash import mem_game
 from Games.objRet import obj_game
 
 
@@ -27,7 +30,7 @@ ttsON = True
 reroll = "r"
 team1P = 0
 team2P = 0
-ranGame = 100
+ranGame = [1,2,3,4]
 
 impWord = ["start","quit","help"]
 games = ["trivia", "object retrieval", "word scramble", "memory mash"]
@@ -135,10 +138,11 @@ while mainState:
                 reroll = input("Press 'r' to reroll. Press anything else to continue. >")
         startCon = False
         sout(engine, ttsON, sst1)
-        ranGame = random.choice(games)
+        shuffle(ranGame)
     while pointsToWin > team1P and pointsToWin > team2P:
         print("large")
-        #obj_game(engine, ttsON)
+        obj_game(engine, ttsON, team1, team2)
+        mem_game(engine, ttsON)
         '''
         if ranGame == 0:
             trivia_game(engine, ttsON)
