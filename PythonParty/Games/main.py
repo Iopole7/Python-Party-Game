@@ -1,4 +1,5 @@
 from random import shuffle
+from turtledemo.penrose import start
 
 import pyttsx3
 import helper_Functions
@@ -31,6 +32,7 @@ reroll = "r"
 team1P = 0
 team2P = 0
 ranGame = [1,2,3,4]
+canCon = False
 
 impWord = ["start","quit","help"]
 games = ["trivia", "object retrieval", "word scramble", "memory mash"]
@@ -139,9 +141,12 @@ while mainState:
         startCon = False
         sout(engine, ttsON, sst1)
         shuffle(ranGame)
-    while pointsToWin > team1P and pointsToWin > team2P:
+        canCon = True
+    while pointsToWin > team1P and pointsToWin > team2P and canCon:
+        sout(engine, ttsON, f"Team 1 has won {team1P} games and team 2 has won {team2P} games. Press enter to start the next game!")
+        input(">")
         print("large")
-        obj_game(engine, ttsON, team1, team2)
+        #obj_game(engine, ttsON, team1, team2)
         mem_game(engine, ttsON)
         '''
         if ranGame == 0:
