@@ -4,16 +4,19 @@ from time import sleep
 from Games import helper_Functions
 import pygame
 def mem_game(engine, tts):
-    pygame.init()
-    screen = pygame.display.set_mode((1280, 720))
-    clock = pygame.time.Clock()
-
     running = True
     colours = ("g", "r", "b", "y")
     correct_guess = []
     correct_guess_string = ''.join(map(str, correct_guess))
     guess = ""
+
+    team1Score = 0
+    team2Score = 0
+    team1Scoretemp = 0
+    team2Scoretemp = 0
+
     starting_team = randint(1,2)
+
 
     s1 = "Welcome to memory mash! This game requires a full team to work together!"
     s2 = "Colours will be displayed on the screen and your team will have to memorize them!"
@@ -31,25 +34,23 @@ def mem_game(engine, tts):
         rnd_val = randint(0, 3)
         correct_guess.append(colours[rnd_val])
         input("Press enter when ready: ")
+        sleep(1)
         for val in correct_guess:
+            sleep(0.25)
             if val == "g":
-                screen.fill("green")
-                pygame.display.flip()
+                helper_Functions.speak(engine, "green")
             elif val == "r":
-                screen.fill("red")
-                pygame.display.flip()
+                helper_Functions.speak(engine, "red")
             elif val == "b":
-                screen.fill("blue")
-                pygame.display.flip()
+                helper_Functions.speak(engine, "blue")
             elif val == "y":
-                screen.fill("yellow")
-                pygame.display.flip()
-            sleep(0.5)
+                helper_Functions.speak(engine, "yellow")
         guess = input("Colours:")
         if guess != correct_guess_string:
-            break
+            pass
 
-    pygame.quit()
+
+
 
 
 

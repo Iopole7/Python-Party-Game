@@ -5,6 +5,9 @@ def pntSpeak(engine, state, speach):
     if state:
         engine.say(speach)
         engine.runAndWait()
+def speak(engine, text):
+    engine.say(text)
+    engine.runAndWait()
 
 def hlpMenu():
     print("To start the game, type 'start', To quit, type 'quit'")
