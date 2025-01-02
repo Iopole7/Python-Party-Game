@@ -1,10 +1,12 @@
-from random import shuffle
+from itertools import count
+from random import shuffle, randint
 from turtledemo.penrose import start
 
 import pyttsx3
 import helper_Functions
 import random
 
+from Games.Trivia import trivia_game
 from Games.memory_mash import mem_game
 from Games.objRet import obj_game
 from Games.wordScramble import word_game
@@ -13,7 +15,7 @@ from Games.wordScramble import word_game
 def sout(eng, tts, string):
     helper_Functions.pntSpeak(eng, tts, string)
 
-pointsToWin = 2
+pointsToWin = 3
 textInVal = 10
 startCon = False
 teamMode = ""
@@ -32,20 +34,24 @@ ttsON = True
 reroll = "r"
 team1P = 0
 team2P = 0
-ranGame = [1,2,3,4]
+ranGame = [0,1,2,3]
+currGame = -1
 canCon = False
+counter = 0
+mgame_winner = 0
+rematch = False
 
 impWord = ["start","quit","help"]
 games = ["trivia", "object retrieval", "word scramble", "memory mash"]
 
 bst1 = "Hello and welcome to PPG, Python Party Game. You will all be split into two teams!"
-bst1_1 = "Please type 'on' to keep text to speech. Otherwise, type anything else to continue."
+bst1_1 = "Please type 'on' and press enter to keep text to speech. Otherwise, press 'enter' to continue."
 bst2 = f"There are a series of mini games to complete and the first team to get {pointsToWin} points will be declared victorious."
 bst3 = f"To access the help menu, type 'help' into the command line. To start the game, type 'start' into the command line."
 bst4 = "To quit, type 'quit' into the command line."
 
 gst1 = "Would you like to create teams manually, or automatically? Type 'm' or 'a'"
-gst2 = f"Alright, time to add the players!"
+gst2 = f"Alright, time to add the players! Type the name of one player into the line and press enter."
 gst3 = "When done adding players for team1 type 'end'"
 gst4 = "Now for team 2!"
 gst5 = "List all the players! When done type 'end'!"
@@ -70,7 +76,8 @@ sout(engine, ttsON, bst4)
 while mainState:
     if teamMode == "quit":
         break
-    textIn = input('>').lower()
+    if not rematch:
+        textIn = input('>').lower()
     if textIn in impWord:
         textInVal = impWord.index(textIn)
         if textInVal == 1:
@@ -146,20 +153,41 @@ while mainState:
     while pointsToWin > team1P and pointsToWin > team2P and canCon:
         sout(engine, ttsON, f"Team 1 has won {team1P} games and team 2 has won {team2P} games. Press enter to start the next game!")
         input(">")
-        #obj_game(engine, ttsON, team1, team2)
-        #mem_game(engine, ttsON)
-        word_game(engine,ttsON)
-        '''
-        if ranGame == 0:
-            trivia_game(engine, ttsON)
-        if ranGame == 1:
-            obj_game(engine, ttsON)
-        if ranGame == 2:
-            word_game(engine, ttsON)
-        if ranGame == 3:
-            mem_game(engine, ttsON)
-        '''
+        if counter == 4:
+            sout(engine, ttsON, f"The score is tied! So we have a tie breaker game!")
+            currGame = randint(0, 3)
+            input("Press enter when ready: ")
+        else:
+            currGame = ranGame[counter]
+        counter += 1
+        if currGame == 0:
+            mgame_winner = trivia_game(engine, ttsON)
+        elif currGame == 1:
+            mgame_winner = obj_game(engine, ttsON, team1, team2)
+        elif currGame == 2:
+            mgame_winner = word_game(engine, ttsON)
+        elif currGame == 3:
+            mgame_winner = mem_game(engine, ttsON)
 
+        if mgame_winner == 1:
+            team1P += 1
+            mgame_winner = -1
+        elif mgame_winner == 2:
+            team2P += 1
+            mgame_winner = -1
+    if team1P > team2P:
+        sout(engine, ttsON, "Team 1 won! YAYAY")
+    else:
+        sout(engine, ttsON, "Team 2 won! YAYAY")
+    if input("Rematch? Enter 'y' to rematch: ") == 'y':
+        team1P = 0
+        team2P = 0
+        canCon = True
+        rematch = True
+        counter = 0
+        shuffle(ranGame)
+    else:
+        break
 
-sout(engine, ttsON,"Thank you for playing")
+sout(engine, ttsON,"\nThank you for playing")
 engine.stop()

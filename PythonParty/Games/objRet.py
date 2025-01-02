@@ -1,5 +1,7 @@
 from random import randint, random, choice
 import keyboard
+import pyautogui
+
 from Games import helper_Functions
 
 def obj_game(eng, tts, team1, team2):
@@ -19,7 +21,7 @@ def obj_game(eng, tts, team1, team2):
     fnd_lst = ("a left Shoe", "a bottle of water", "a shampoo bottle", "a toliet paper", "something wooden", "something hard",
     "something that tells time", "something that has legs", "something that smells", "a rock", "something made of metal",
     "something tasty", "something sweet", "a small friend")
-
+    pyautogui.hotkey('ctrl', 'l')
     helper_Functions.pntSpeak(eng, tts, s1)
     helper_Functions.pntSpeak(eng, tts, s2)
     helper_Functions.pntSpeak(eng, tts, s3)
@@ -56,8 +58,8 @@ def obj_game(eng, tts, team1, team2):
     if team1Points > team2Points:
         helper_Functions.pntSpeak(eng, tts, "\nTeam 1 won this mini game!")
         input("Press enter to continue to the next game")
-        return True
+        return 1
     else:
         helper_Functions.pntSpeak(eng, tts, "\nTeam 2 won this mini game!")
         input("Press enter to continue to the next game")
-        return False
+        return 2

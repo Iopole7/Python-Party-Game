@@ -28,7 +28,7 @@ def mem_game(engine, tts):
     s3 = "The team that can get the most right will win the round. The team that wins best 2/3 games gets the point."
     s4 = "Enter the colour sequence with the first letters ex. gbyygbr"
     s5 = f"The team starting first will be team {starting_team}"
-
+    pyautogui.hotkey('ctrl', 'l')
     helper_Functions.pntSpeak(engine, tts, s1)
     helper_Functions.pntSpeak(engine, tts, s2)
     helper_Functions.pntSpeak(engine, tts, s3)
@@ -41,10 +41,9 @@ def mem_game(engine, tts):
         rnd_val = randint(0, 3)
         correct_guess.append(colours[rnd_val])
         correct_guess_string = ''.join(map(str, correct_guess))
-        sleep(2)
+        sleep(1)
         pyautogui.hotkey('ctrl','l')
         for val in correct_guess:
-            #sleep(0.1)
             if val == "g":
                 helper_Functions.speak(engine, "green")
             elif val == "r":
@@ -81,11 +80,16 @@ def mem_game(engine, tts):
                 team1Complete = False
                 team2Complete = False
                 print("Team 1 won this round")
-            else:
+            elif team1Scoretemp < team2Scoretemp:
                 team2Score += 1
                 team1Complete = False
                 team2Complete = False
                 print("Team 2 won this round")
+            else:
+                print("Tie")
+                team1Complete = False
+                team2Complete = False
+
             helper_Functions.speak(engine, f"Team 1 got {team1Scoretemp} points, Team 2 got {team2Scoretemp} points")
             team1Scoretemp = 0
             team2Scoretemp = 0
