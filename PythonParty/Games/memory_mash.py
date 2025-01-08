@@ -52,7 +52,6 @@ def mem_game(engine, tts):
                 helper_Functions.speak(engine, "blue")
             elif val == "y":
                 helper_Functions.speak(engine, "yellow")
-        print(correct_guess_string)
         guess = input("Colours:")
         if guess != correct_guess_string:
             helper_Functions.speak(engine, "Incorrect guess")

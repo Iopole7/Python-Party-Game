@@ -40,6 +40,7 @@ canCon = False
 counter = 0
 mgame_winner = 0
 rematch = False
+endCon = False
 
 impWord = ["start","quit","help"]
 games = ["trivia", "object retrieval", "word scramble", "memory mash"]
@@ -175,19 +176,20 @@ while mainState:
         elif mgame_winner == 2:
             team2P += 1
             mgame_winner = -1
-    if team1P > team2P:
-        sout(engine, ttsON, "Team 1 won! YAYAY")
-    else:
-        sout(engine, ttsON, "Team 2 won! YAYAY")
-    if input("Rematch? Enter 'y' to rematch: ") == 'y':
-        team1P = 0
-        team2P = 0
-        canCon = True
-        rematch = True
-        counter = 0
-        shuffle(ranGame)
-    else:
-        break
+    if endCon:
+        if team1P > team2P:
+            sout(engine, ttsON, "Team 1 won! YAYAY")
+        else:
+            sout(engine, ttsON, "Team 2 won! YAYAY")
+        if input("Rematch? Enter 'y' to rematch: ") == 'y':
+            team1P = 0
+            team2P = 0
+            canCon = True
+            rematch = True
+            counter = 0
+            shuffle(ranGame)
+        else:
+            break
 
 sout(engine, ttsON,"\nThank you for playing")
 engine.stop()

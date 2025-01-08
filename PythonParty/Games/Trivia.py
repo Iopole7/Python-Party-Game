@@ -293,7 +293,7 @@ def trivia_game(eng,tts):
                 return 0
         used_vals.append(fact)
         helper_Functions.pntSpeak(eng, tts,question[fact].get("question"))
-        helper_Functions.pntSpeak(eng, tts, question[fact].get("choices"))
+        helper_Functions.pntSpeak(eng, tts, str(question[fact].get("choices")))
         helper_Functions.pntSpeak(eng, tts, s3)
         team1_guess = input(">")
         pyautogui.hotkey('ctrl', 'l')
